@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "Netflix Clean",
+  "description": "Partially hiding user rated content from Netflix",
+  "version": "0.0.1",
+  "author": "Antoine Le Chapelain",
+  "homepage_url": "https://github.com/alechapelain",
+  "content_scripts": [{
+    "matches": ["https://www.netflix.com/*"],
+    "js": ["content.js"]
+  }],
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "web_accessible_resources": ["netflix-clean.js"]
+}
