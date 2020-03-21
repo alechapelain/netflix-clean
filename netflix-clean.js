@@ -1,10 +1,16 @@
 (function() {
+    let scrollTimer
+
     /**
      * Hide items at init and on scroll
      */
     function init () {
-        window.addEventListener('scroll', _hideUserRatedItems);
         _hideUserRatedItems();
+
+        window.addEventListener('scroll', function () {
+            window.clearTimeout( scrollTimer );
+            scrollTimer = setTimeout(_hideUserRatedItems, 500);
+        });
     }
 
     /**
