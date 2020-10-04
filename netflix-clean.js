@@ -32,7 +32,8 @@
         return (
             item &&
             item.userRating &&
-            item.userRating.userRating !== 0
+            item.userRating.userRating !== 0 &&
+            item.userRating.userRating !== -1
         );
     }
 
