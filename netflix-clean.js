@@ -7,6 +7,10 @@
     function init () {
         _hideUserRatedItems();
 
+        [...document.querySelectorAll('.sliderContent')].forEach((sliderContent) => {
+            sliderContent.addEventListener('transitionend', () => setTimeout(_hideUserRatedItems, 500))
+        })
+
         window.addEventListener('scroll', function () {
             window.clearTimeout( scrollTimer );
             scrollTimer = setTimeout(_hideUserRatedItems, 500);
@@ -27,7 +31,7 @@
             .map(list => typeof list === 'object' && Object.keys(list).map(itemId => itemId.includes('$') ? [] : list[itemId]))
             .flat(2)
             .map(item => item.itemSummary && item.itemSummary.value ? item.itemSummary.value : {})
-            .find(item => item.id === itemId)
+            .find(item => item.id === itemId);
 
         return (
             item &&
@@ -50,6 +54,7 @@
             );
 
             card.parentNode.style.opacity = _isItemRated(parseInt(itemId)) ?  '0.1' : '1';
+            card.parentNode.style.transition = 'opacity 0.3s ease-in-out';
         })
     }
 
