@@ -7,12 +7,18 @@
     function init () {
         _hideUserRatedItems();
 
-        [...document.querySelectorAll('.sliderContent')].forEach((sliderContent) => {
-            sliderContent.addEventListener('transitionend', () => setTimeout(_hideUserRatedItems, 500))
-        })
-
         window.addEventListener('scroll', function () {
             window.clearTimeout( scrollTimer );
+
+            // Transition on sliders - check if className is matching due to bubbling
+            [...document.querySelectorAll('.sliderContent')].forEach((sliderContent) => {
+                sliderContent.ontransitionend = (evt) => {
+                    if (evt && evt.target && evt.target.className && evt.target.className.includes('sliderContent')) {
+                        setTimeout(_hideUserRatedItems, 500)
+                    }
+                }
+            })
+
             scrollTimer = setTimeout(_hideUserRatedItems, 500);
         });
     }
